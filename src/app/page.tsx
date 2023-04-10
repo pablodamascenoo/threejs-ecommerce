@@ -5,9 +5,7 @@ import Canvas from "@/components/Canvas";
 export default function Home() {
   return (
     <>
-      <head>
-        <title>Threejs Ecommerce</title>
-      </head>
+      <title>Threejs Ecommerce</title>
       <main className="app transition-all ease-in">
         <PrimaryPage />
         <Customizer />
