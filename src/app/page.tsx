@@ -1,14 +1,18 @@
-import Image from 'next/image'
-import Home from '@/components/Home'
-import Customizer from '@/components/Customizer'
-import Canvas from '@/components/Canvas'
+import PrimaryPage from "@/components/Home";
+import Customizer from "@/components/Customizer";
+import Canvas from "@/components/Canvas";
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <main className="app transition-all ease-in">
-      <Home/>
-      <Customizer/>
-      <Canvas/>
-    </main>
-  )
+    <>
+      <head>
+        <title>Threejs Ecommerce</title>
+      </head>
+      <main className="app transition-all ease-in">
+        <PrimaryPage />
+        <Customizer />
+        <Canvas />
+      </main>
+    </>
+  );
 }
