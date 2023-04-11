@@ -21,6 +21,30 @@ export default function Customizer() {
   const intro = useStore((state) => state.intro);
   const setIntro = useStore((state) => state.setIntro);
 
+  const [file, setFile] = useState("");
+
+  const [prompt, setPrompt] = useState("");
+  const [generatingImg, setGeneratingImg] = useState(false);
+
+  const [activeEditorTab, setActiveEditorTab] = useState("");
+  const [activeFilterTab, setActiveFilterTab] = useState({
+    logoShirt: true,
+    stylishShirt: false,
+  });
+
+  function generateTabContent() {
+    switch (activeEditorTab) {
+      case "colorpicker":
+        return <ColorPicker />;
+      case "filepicker":
+        return <FilePicker />;
+      case "aipicker":
+        return <AIPicker />;
+      default:
+        break;
+    }
+  }
+
   return (
     <AnimatePresence>
       {!intro && (
@@ -33,8 +57,17 @@ export default function Customizer() {
             <div className="flex items-center min-h-screen">
               <div className="editortabs-container tabs">
                 {EditorTabs.map((item, index) => {
-                  return <Tab tab={item} handleClick={() => {}} key={index} />;
+                  return (
+                    <Tab
+                      tab={item}
+                      handleClick={() => {
+                        setActiveEditorTab(item.name);
+                      }}
+                      key={index}
+                    />
+                  );
                 })}
+                {generateTabContent()}
               </div>
             </div>
           </motion.div>
@@ -55,7 +88,7 @@ export default function Customizer() {
                 <Tab
                   tab={item}
                   isFilterTab
-                  isActiveTab=""
+                  isActiveTab
                   handleClick={() => {}}
                   key={index}
                 />
