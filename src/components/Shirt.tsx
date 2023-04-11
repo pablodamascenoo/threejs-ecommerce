@@ -5,15 +5,45 @@ import { Decal, useGLTF, useTexture } from "@react-three/drei";
 import useStore from "@/Context/store";
 
 export default function Shirt() {
-  const logoTexture = useStore((state) => state.logoDecal);
-  const fullTexture = useStore((state) => state.fullDecal);
+  const logoTexture = useTexture(useStore((state) => state.logoDecal));
+  const fullTexture = useTexture(useStore((state) => state.fullDecal));
+  const isFullTexture = useStore((state) => state.isFullTexture);
+  const isLogoTexture = useStore((state) => state.isLogoTexture);
+  const color = useStore((state) => state.color);
 
-  const { scene } = useGLTF("./shirt_baked.glb");
+  const { nodes } = useGLTF("./shirt_baked.glb");
+
+  useFrame((state, delta) =>
+    easing.dampC(nodes.T_Shirt_male.material.color, color, 0.25, delta)
+  );
 
   return (
     <group>
-      <mesh castShadow dispose={null}>
-        <primitive object={scene} />
+      <mesh
+        castShadow
+        dispose={null}
+        geometry={nodes.T_Shirt_male.geometry}
+        material={nodes.T_Shirt_male.material}
+      >
+        {isFullTexture && (
+          <Decal
+            position={[0, 0, 0]}
+            rotation={0}
+            scale={1}
+            map={fullTexture}
+          />
+        )}
+        {isLogoTexture && (
+          <Decal
+            position={[0, 0.04, 0.15]}
+            rotation={0.3}
+            scale={0.15}
+            map={logoTexture}
+            map-anisotropy={16}
+            depthTest={false}
+            depthWrite={true}
+          />
+        )}
       </mesh>
     </group>
   );
