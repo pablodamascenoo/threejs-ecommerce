@@ -1,10 +1,13 @@
 export const transition = { type: "spring", duration: 0.8 };
 
-export const slideAnimation = (direction: "left" | "right" | "up" | "down") => {
+export const slideAnimation = (
+  direction: "left" | "right" | "up" | "down",
+  value = 100
+) => {
   return {
     initial: {
-      x: direction === "left" ? -100 : direction === "right" ? 100 : 0,
-      y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
+      x: direction === "left" ? -value : direction === "right" ? value : 0,
+      y: direction === "up" ? value : direction === "down" ? -value : 0,
       opacity: 0,
       transition: { ...transition, delay: 0.5 },
     },
@@ -15,8 +18,8 @@ export const slideAnimation = (direction: "left" | "right" | "up" | "down") => {
       transition: { ...transition, delay: 0 },
     },
     exit: {
-      x: direction === "left" ? -100 : direction === "right" ? 100 : 0,
-      y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
+      x: direction === "left" ? -value : direction === "right" ? value : 0,
+      y: direction === "up" ? value : direction === "down" ? -value : 0,
       transition: { ...transition, delay: 0 },
     },
   };
