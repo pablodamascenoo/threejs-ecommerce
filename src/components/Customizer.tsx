@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import useStore from "@/Context/store";
 
 import config from "@/config/config";
-import { download } from "@/assets";
+import { download, logoShirt } from "@/assets";
 import { downloadCanvasToImage, reader } from "@/config/helpers";
 import { EditorTabs, FilterTabs, DecalTypes } from "@/config/constants";
 import { fadeAnimation, slideAnimation } from "@/config/motion";
@@ -20,6 +20,10 @@ import {
 export default function Customizer() {
   const intro = useStore((state) => state.intro);
   const setIntro = useStore((state) => state.setIntro);
+  const setIsFullTexture = useStore((state) => state.setIsFullTexture);
+  const isFullTexture = useStore((state) => state.isFullTexture);
+  const isLogoTexture = useStore((state) => state.isLogoTexture);
+  const setIsLogoTexture = useStore((state) => state.setIsLogoTexture);
 
   const [file, setFile] = useState("");
 
@@ -27,10 +31,10 @@ export default function Customizer() {
   const [generatingImg, setGeneratingImg] = useState(false);
 
   const [activeEditorTab, setActiveEditorTab] = useState("");
-  const [activeFilterTab, setActiveFilterTab] = useState({
-    logoShirt: true,
-    stylishShirt: false,
-  });
+  // const [activeFilterTab, setActiveFilterTab] = useState({
+  //   logoShirt: true,
+  //   stylishShirt: false,
+  // });
 
   function generateTabContent() {
     switch (activeEditorTab) {
@@ -61,7 +65,9 @@ export default function Customizer() {
                     <Tab
                       tab={item}
                       handleClick={() => {
-                        setActiveEditorTab(item.name);
+                        activeEditorTab !== item.name
+                          ? setActiveEditorTab(item.name)
+                          : setActiveEditorTab("");
                       }}
                       key={index}
                     />
@@ -89,7 +95,12 @@ export default function Customizer() {
                   tab={item}
                   isFilterTab
                   isActiveTab
-                  handleClick={() => {}}
+                  handleClick={() => {
+                    if (item.name === "logoShirt")
+                      setIsLogoTexture(!isLogoTexture);
+                    else if ((item.name = "stylishShirt"))
+                      setIsFullTexture(!isFullTexture);
+                  }}
                   key={index}
                 />
               );

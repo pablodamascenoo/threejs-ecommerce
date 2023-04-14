@@ -10,7 +10,7 @@ export default function ColorPicker() {
   return (
     <motion.div
       className="absolute left-full ml-3"
-      {...slideAnimation("left", 170)}
+      {...slideAnimation("left", 300)}
     >
       <SketchPicker
         color={color}
