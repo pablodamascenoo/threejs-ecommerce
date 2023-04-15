@@ -1,3 +1,3 @@
 export default function AIPicker() {
-  return <div>AIPicker</div>;
+  return <div>Not implemented</div>;
 }
