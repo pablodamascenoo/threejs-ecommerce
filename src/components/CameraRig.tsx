@@ -29,6 +29,7 @@ export default function CameraRig({ children }: Props) {
 
     if (group.current && group.current.rotation) {
       easing.dampE(
+        // @ts-ignore
         group.current.rotation,
         [state.pointer.y / 10, -state.pointer.x / 5, 0],
         0.25,
@@ -37,5 +38,6 @@ export default function CameraRig({ children }: Props) {
     }
   });
 
+  // @ts-ignore
   return <group ref={group}>{children}</group>;
 }
