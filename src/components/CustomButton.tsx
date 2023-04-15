@@ -1,5 +1,6 @@
 import React from "react";
 import useStore from "@/Context/store";
+import { getContrastingColor } from "@/config/helpers";
 
 type Props = {
   title: string;
@@ -19,7 +20,13 @@ export default function CustomButton({
     if (type === "filled") {
       return {
         backgroundColor: color,
-        color: "#fff",
+        color: getContrastingColor(color),
+      };
+    } else if (type === "outline") {
+      return {
+        borderWidth: "1px",
+        borderColor: color,
+        color,
       };
     }
   };

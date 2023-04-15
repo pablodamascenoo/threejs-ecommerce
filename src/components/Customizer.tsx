@@ -24,6 +24,8 @@ export default function Customizer() {
   const isFullTexture = useStore((state) => state.isFullTexture);
   const isLogoTexture = useStore((state) => state.isLogoTexture);
   const setIsLogoTexture = useStore((state) => state.setIsLogoTexture);
+  const setLogoDecal = useStore((state) => state.setLogoDecal);
+  const setFullDecal = useStore((state) => state.setFullDecal);
 
   const [file, setFile] = useState("");
 
@@ -41,11 +43,27 @@ export default function Customizer() {
       case "colorpicker":
         return <ColorPicker />;
       case "filepicker":
-        return <FilePicker />;
+        return <FilePicker file={file} setFile={setFile} readFile={readFile} />;
       case "aipicker":
         return <AIPicker />;
       default:
         break;
+    }
+  }
+
+  function readFile(type: "logo" | "full") {
+    reader(file).then((result) => {
+      handleDecals(type, result);
+    });
+  }
+
+  function handleDecals(type: "logo" | "full", result: any) {
+    if (type === "logo") {
+      setLogoDecal(result);
+      setIsLogoTexture(true);
+    } else if (type === "full") {
+      setFullDecal(result);
+      setIsFullTexture(true);
     }
   }
 

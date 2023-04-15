@@ -11,9 +11,11 @@ export default function Shirt() {
   const isLogoTexture = useStore((state) => state.isLogoTexture);
   const color = useStore((state) => state.color);
 
+  // @ts-ignore
   const { nodes } = useGLTF("./shirt_baked.glb");
 
   useFrame((state, delta) =>
+    // @ts-ignore
     easing.dampC(nodes.T_Shirt_male.material.color, color, 0.25, delta)
   );
 
@@ -36,7 +38,7 @@ export default function Shirt() {
         {isLogoTexture && (
           <Decal
             position={[0, 0.04, 0.15]}
-            rotation={0.3}
+            rotation={0}
             scale={0.15}
             map={logoTexture}
             map-anisotropy={16}
